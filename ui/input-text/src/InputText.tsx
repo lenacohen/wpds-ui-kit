@@ -192,6 +192,8 @@ export const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
       setErrorId(`wpds-input-error-${nanoid(6)}`);
     }, []);
 
+    console.log("--------")
+    console.log(label)
     const [isFloating, handleOnFocus, handleOnBlur, handleOnChange] =
       useFloating(value || defaultValue, onFocus, onBlur, onChange);
 

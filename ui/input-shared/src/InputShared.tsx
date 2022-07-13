@@ -48,8 +48,17 @@ export const useFloating = (
   React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>,
   (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 ] => {
-  const [isFloating, setIsFloating] = React.useState(val ? true : false);
+  const [isFloating, setIsFloating] = React.useState(val ? true : true);
+  console.log("initial state:")
+  console.log(val)
+  console.log(isFloating)
   const [isTouched, setIsTouched] = React.useState(val ? true : false);
+
+  React.useEffect(() => {
+    if (val) {
+      console.log("useEffect: true val")
+    }
+  }, [val])
 
   function handleFocus(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -61,8 +70,9 @@ export const useFloating = (
   function handleBlur(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    if (!isTouched) {
+    if (!isTouched && !val) {
       setIsFloating(false);
+      console.log("handleBlur setIsFloating(false)")
     }
     onBlur && onBlur(event);
   }

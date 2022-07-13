@@ -6,6 +6,7 @@ import { Icon } from "@washingtonpost/wpds-icon";
 import Asset from "@washingtonpost/wpds-assets/asset/settings";
 import { VisuallyHidden } from "@washingtonpost/wpds-visually-hidden";
 import { styled } from "@washingtonpost/wpds-theme";
+import {Button} from "@washingtonpost/wpds-button";
 
 export default {
   title: "InputText",
@@ -151,3 +152,21 @@ Interactions.play = async ({ args }) => {
   await userEvent.click(screen.getByRole("button"));
   await expect(args.onButtonIconClick).toHaveBeenCalled();
 };
+
+const BugFixTemplate = (args) => {
+  const [value1] = React.useState("value 1");
+  const [value2, setValue2] = React.useState("");
+  function handleSyncClick() {
+    setValue2(() => value1);
+  }
+
+  return (
+    <Column>
+      <Component label="Input 1" name="input1" id="input1" value={value1} />
+      <Button onClick={handleSyncClick}>Sync</Button>
+      <Component label="Input 2" name="input2" id="input2" value={value2} />
+    </Column>
+  );
+}
+export const BugFix = BugFixTemplate.bind({});
+
